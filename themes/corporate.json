@@ -1,0 +1,13 @@
+{
+  "name": "corporate",
+  "label": "회사 보고",
+  "font": "Malgun Gothic",
+  "background": "FFFFFF",
+  "foreground": "172B3A",
+  "muted": "596773",
+  "accent": "165D8C",
+  "secondary": "71899B",
+  "rule": "D9E1E7",
+  "tableHeader": "173E58",
+  "tableStripe": "F2F5F7"
+}

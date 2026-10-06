@@ -1,0 +1,29 @@
+{
+  "name": "report-forge-local",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Portable, source-aware presentation and report generator",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "bin": {
+    "report-forge": "src/cli.mjs"
+  },
+  "scripts": {
+    "demo": "node src/cli.mjs build examples/demo/report.json --out outputs/demo --force",
+    "demo:company": "node scripts/company-demo.mjs",
+    "studio": "node src/cli.mjs studio examples/demo/report.json",
+    "test": "node --test test/*.test.mjs",
+    "validate": "node src/cli.mjs validate examples/demo/report.json"
+  },
+  "dependencies": {
+    "@xmldom/xmldom": "0.9.12",
+    "ajv": "8.17.1",
+    "csv-parse": "5.6.0",
+    "docx": "9.6.1",
+    "exceljs": "4.4.0",
+    "jszip": "3.10.1",
+    "pptxgenjs": "4.0.1"
+  }
+}

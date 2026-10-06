@@ -1,0 +1,22 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { ROOT } from '../src/core.mjs';
+import { readProject, buildReport } from '../src/build.mjs';
+import { companyFixture } from '../test/company-fixture.mjs';
+import { inspectTemplate } from '../src/template.mjs';
+
+const out = path.join(ROOT, 'outputs/company-demo');
+await fs.mkdir(out, { recursive: true });
+const bytes = await companyFixture();
+await fs.writeFile(path.join(out, 'company-source.pptx'), bytes);
+const project = await readProject(path.join(ROOT, 'examples/demo/report.json'));
+const report = structuredClone(project.report);
+delete report.$schema;
+report.datasets.forEach(d => { d.file = `data/${path.basename(d.file)}`; });
+report.template = { file: 'company-source.pptx' };
+await fs.mkdir(path.join(out, 'data'), { recursive: true });
+await fs.copyFile(path.join(project.baseDir, 'data/sales.csv'), path.join(out, 'data/sales.csv'));
+await fs.writeFile(path.join(out, 'report.json'), JSON.stringify(report, null, 2));
+await fs.writeFile(path.join(out, 'design.json'), JSON.stringify(await inspectTemplate(bytes), null, 2));
+const result = await buildReport(report, out, path.join(out, 'result'), { force: true, inputFile: path.join(out, 'report.json') });
+console.log(`회사 디자인 예제: ${result.pages.length}장\n${result.outDir}`);

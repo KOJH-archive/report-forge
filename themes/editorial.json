@@ -1,0 +1,13 @@
+{
+  "name": "editorial",
+  "label": "개인 프로젝트",
+  "font": "Malgun Gothic",
+  "background": "FFFDF8",
+  "foreground": "292D29",
+  "muted": "62685F",
+  "accent": "32644F",
+  "secondary": "9A8263",
+  "rule": "E1E2D9",
+  "tableHeader": "325644",
+  "tableStripe": "F3F3ED"
+}

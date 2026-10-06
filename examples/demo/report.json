@@ -1,0 +1,30 @@
+{
+  "$schema": "../../schema/report.schema.json",
+  "version": 1,
+  "title": "상반기 사업 성과와 다음 실행 계획",
+  "subtitle": "데이터와 출처를 공유하는 발표 자료 및 보고서 예제",
+  "author": "Report Forge 데모",
+  "date": "2026-10-06",
+  "theme": "corporate",
+  "disclosure": "서식 검증용 가상 데이터이며 실제 기업 실적이 아닙니다",
+  "sources": [
+    { "id": "sales-demo", "title": "상반기 채널별 매출 예제", "publisher": "Report Forge 가상 데이터", "date": "2026-10-06", "locator": "data/sales.csv, 전체 행, 매출 단위 백만원" },
+    { "id": "plan-demo", "title": "하반기 실행 계획 예제", "publisher": "Report Forge 데모 작성자", "date": "2026-10-06", "locator": "report.json, comparison 및 timeline 블록, 제안 사항" }
+  ],
+  "datasets": [{ "id": "sales", "file": "data/sales.csv", "sourceIds": ["sales-demo"] }],
+  "metrics": [
+    { "id": "onlineTotal", "label": "온라인 누적 매출", "dataset": "sales", "column": "온라인", "operation": "sum", "unit": "백만원", "decimals": 0, "description": "1월부터 6월까지의 합계" },
+    { "id": "offlineTotal", "label": "오프라인 누적 매출", "dataset": "sales", "column": "오프라인", "operation": "sum", "unit": "백만원", "decimals": 0, "description": "1월부터 6월까지의 합계" },
+    { "id": "onlineGrowth", "label": "온라인 매출 변화율", "dataset": "sales", "column": "온라인", "operation": "growthPct", "unit": "%", "decimals": 1, "description": "1월 대비 6월의 변화율" }
+  ],
+  "sections": [
+    { "type": "summary", "title": "상반기 핵심 결과", "lead": "온라인 매출의 1월 대비 6월 변화율은 {{onlineGrowth}}입니다", "bullets": ["온라인 누적 매출은 {{onlineTotal}}입니다", "오프라인 누적 매출은 {{offlineTotal}}입니다", "다음 단계에서는 온라인 채널의 실험 결과를 검토합니다"], "body": ["이 예제는 사용자가 작성한 이야기와 원본 데이터를 연결합니다. 숫자는 매번 원본 파일에서 계산하며 동일한 결과를 발표 자료와 보고서에 반영합니다."], "sourceIds": ["sales-demo", "plan-demo"] },
+    { "type": "metrics", "title": "채널별 주요 지표", "metricIds": ["onlineTotal", "offlineTotal", "onlineGrowth"] },
+    { "type": "chart", "title": "월별 채널 매출", "lead": "온라인과 오프라인의 월별 매출을 같은 단위로 비교합니다", "dataset": "sales", "chartType": "line", "labelColumn": "월", "series": [{ "column": "온라인", "name": "온라인" }, { "column": "오프라인", "name": "오프라인" }], "unit": "백만원", "body": ["온라인 매출은 120백만원에서 178백만원으로 증가했습니다. 이 데이터만으로 증가 원인을 확정할 수는 없습니다."] },
+    { "type": "table", "title": "원본 수치 확인", "lead": "차트와 지표 계산에 사용한 월별 수치입니다", "dataset": "sales", "columns": ["월", "온라인", "오프라인", "고객수"] },
+    { "type": "comparison", "title": "다음 단계의 선택지", "lead": "다음 선택지는 분석 결과에 대한 제안이며 확정 계획이 아닙니다", "options": [{ "name": "온라인 실험 확대", "strength": "상승한 채널의 추가 기회를 확인할 수 있습니다", "tradeoff": "추가 비용과 실험 설계가 필요합니다" }, { "name": "오프라인 효율 개선", "strength": "기존 운영의 비용 구조를 검토할 수 있습니다", "tradeoff": "효과를 확인할 별도 지표가 필요합니다" }], "sourceIds": ["plan-demo"] },
+    { "type": "timeline", "title": "실행 일정 제안", "steps": [{ "when": "1주차", "title": "채널별 비용과 전환율 확인", "owner": "분석 담당" }, { "when": "2주차", "title": "온라인 실험 설계와 예산 검토", "owner": "사업 담당" }, { "when": "3~4주차", "title": "실험 결과를 검토하고 다음 실행 결정", "owner": "프로젝트 책임자" }], "sourceIds": ["plan-demo"] },
+    { "type": "text", "title": "해석의 범위", "body": ["여기에서 계산한 변화율은 데이터의 첫 행과 마지막 행을 비교한 값입니다. 월별 데이터의 정렬 순서를 유지해야 같은 의미로 해석할 수 있습니다.", "매출 수치에는 비용 정보가 포함되어 있지 않습니다. 수익성 판단에는 비용과 이익률 자료를 추가해야 합니다."], "sourceIds": ["sales-demo"] },
+    { "type": "conclusion", "title": "검토할 다음 결정", "lead": "온라인 채널 실험의 범위와 예산을 검토합니다", "bullets": ["채널별 비용과 전환율 데이터를 보완합니다", "실험의 성공 기준과 중단 기준을 정합니다", "다음 보고 때 같은 서식에 갱신한 데이터를 넣습니다"], "sourceIds": ["plan-demo"] }
+  ]
+}
